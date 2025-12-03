@@ -2,14 +2,16 @@ name: MLForensics SQA CI
 
 on:
   push:
+    branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Set up Python
@@ -18,31 +20,18 @@ jobs:
         python-version: "3.11"
 
     - name: Install dependencies
-      working-directory: MLForensics-farzana
       run: |
-        if [ -f requirements.txt ]; then
-          pip install -r requirements.txt
-        fi
-        pip install gitpython pandas numpy
+        python -m pip install --upgrade pip
+        pip install gitpython numpy pandas
 
     - name: Run fuzzing
       working-directory: MLForensics-farzana
-      run: |
-        python fuzz.py || true
+      run: python fuzz.py
 
-    - name: Show forensics & fuzz logs
+    - name: Show logs
       working-directory: MLForensics-farzana
       run: |
-        ls -l
-        if [ -f forensics.log ]; then
-          echo "Forensics log present:"
-          ls -l forensics.log
-        else:
-          echo "forensics.log not generated."
-        fi
-        if [ -f fuzz_results.log ]; then
-          echo "Fuzz results log present:"
-          ls -l fuzz_results.log
-        else:
-          echo "fuzz_results.log not generated."
-        fi
+        echo "====== FORENSICS.LOG ======"
+        cat forensics.log || true
+        echo "====== FUZZ_RESULTS.LOG ======"
+        cat fuzz_results.log || true
