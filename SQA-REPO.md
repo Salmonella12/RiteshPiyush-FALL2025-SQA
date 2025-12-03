@@ -59,7 +59,7 @@ All results were captured in:
 
 ## 2.3 Fuzzing Results and Bugs Found
 
-### ✔ Stable Functions (No Crashes)
+###  Stable Functions (No Crashes)
 The following functions handled fuzzing safely:
 
 - **giveTimeStamp()**  
@@ -74,7 +74,7 @@ The following functions handled fuzzing safely:
 - **makeChunks(the_list, size_)**  
   Did not crash even with unusual list sizes or chunk values.
 
-### ❗ Crashing Function: `days_between(d1_, d2_)`
+###  Crashing Function: `days_between(d1_, d2_)`
 This function does not validate input types before subtracting:
 
 ```python
@@ -144,19 +144,19 @@ Fuzz tests run automatically
 
 The project stays consistent across updates
 5. Lessons Learned
-✔ Fuzz Testing Reveals Hidden Issues
+Fuzz Testing Reveals Hidden Issues
 
 Fuzzing automatically generated invalid inputs that exposed failures in days_between(). This reinforced how powerful fuzz testing is for finding edge-case bugs.
 
-✔ Logging Improves Visibility
+Logging Improves Visibility
 
 Instrumentation allowed us to trace crashes and understand exactly which iteration caused problems. This made debugging significantly easier.
 
-✔ CI Ensures Reliability
+CI Ensures Reliability
 
 Continuous Integration guarantees that every update triggers fresh testing, making the codebase more robust and reducing the risk of unnoticed regressions.
 
-✔ Real-World Project Skills
+Real-World Project Skills
 
 This project taught us how to manage:
 
